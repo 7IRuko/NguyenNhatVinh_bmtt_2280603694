@@ -1,13 +1,12 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from ui.rsa import Ui_MainWindow
-import requests
+from ui.rsa import Ui_mainWindow
 import requests
 import os
 class MyApp(QMainWindow): 
     def __init__(self):
         super().__init__()
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_mainWindow()
         self.ui.setupUi(self)
         self.ui.btn_gen_keys.clicked.connect(self.call_api_gen_keys)
         self.ui.btn_encrypt.clicked.connect(self.call_api_encrypt)
@@ -40,7 +39,7 @@ class MyApp(QMainWindow):
             response = requests.post(url, json=payload)
             if response.status_code == 200:
                 data = response.json()
-                self.ui.txt_cipher_text.setText(data["encrypted_message"])
+                self.ui.txt_cipher_text.setPlainText(data["encrypted_message"])
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Information)
                 msg.setText("Encrypted Successfully")
@@ -60,7 +59,7 @@ class MyApp(QMainWindow):
             response = requests.post(url, json=payload)
             if response.status_code == 200:
                 data = response.json()
-                self.ui.txt_plain_text.setText(data["decrypted_message"])
+                self.ui.txt_plain_text.setPlainText(data["decrypted_message"])
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Information)
                 msg.setText("Decrypted Successfully")
@@ -79,7 +78,7 @@ class MyApp(QMainWindow):
             response = requests.post(url, json=payload)
             if response.status_code == 200:
                 data = response.json()
-                self.ui.txt_sign.setText(data["signature"])
+                self.ui.txt_sign.setPlainText(data["signature"])
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Information)
                 msg.setText("Signed Successfully")
